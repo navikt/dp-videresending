@@ -31,4 +31,4 @@ spec:
   {{/each}}
   env:
     - name: REDIRECTS
-      value: {{redirects}}
+      value: '{{redirects}}'
