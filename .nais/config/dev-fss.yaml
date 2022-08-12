@@ -9,7 +9,7 @@ data:
   REDIRECTS: >-
     [
       {
-        "hostname": "https://dagpenger-regel-ui.nais.adeo.no/"
+        "hostname": "https://dagpenger-regel-ui.nais.adeo.no/",
         "target": "https://dagpenger-regel-ui.dev.intern.nav.no/"
       }
     ]
