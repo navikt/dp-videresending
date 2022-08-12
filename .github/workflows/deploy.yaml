@@ -37,26 +37,32 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cluster: [ dev-gcp, dev-fss ]
     steps:
       - uses: actions/checkout@v3
       - uses: nais/deploy/actions/deploy@master
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/nais.yaml,.nais/config-dev.yaml
-          VARS: .nais/vars-dev.yaml
+          CLUSTER: ${{ matrix.cluster }}
+          RESOURCE: .nais/nais.yaml,.nais/config/${{ matrix.cluster }}.yaml
+          VARS: .nais/vars/${{ matrix.cluster }}.yaml
           PRINT_PAYLOAD: true
 
   deploy-prod:
     needs: [ build ]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cluster: [ prod-gcp, prod-fss ]
     steps:
       - uses: actions/checkout@v3
       - uses: nais/deploy/actions/deploy@master
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: prod-fss
-          RESOURCE: .nais/nais.yaml,.nais/config-prod.yaml
-          VARS: .nais/vars-prod.yaml
+          CLUSTER: ${{ matrix.cluster }}
+          RESOURCE: .nais/nais.yaml,.nais/config/${{ matrix.cluster }}.yaml
+          VARS: .nais/vars/${{ matrix.cluster }}.yaml
           PRINT_PAYLOAD: true
