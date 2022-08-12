@@ -1,9 +1,2 @@
 ingresses:
   - "https://dp-videresending.dev.intern.nav.no"
-redirects: >-
-  [
-    {
-      "pathname": "/test",
-      "target": "https://www.vg.no/"
-    }
-  ]

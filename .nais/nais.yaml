@@ -29,6 +29,5 @@ spec:
   {{#each ingresses as |url|}}
      - {{url}}
   {{/each}}
-  env:
-    - name: REDIRECTS
-      value: '{{redirects}}'
+  envFrom:
+    - configmap: dp-videresending-config
