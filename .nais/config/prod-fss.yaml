@@ -7,4 +7,9 @@ metadata:
     team: teamdagpenger
 data:
   REDIRECTS: >-
-    []
+    [
+      {
+        "hostname": "dagpenger-regel-ui.nais.adeo.no",
+        "target": "https://dagpenger-regel-ui.intern.nav.no"
+      }
+    ]
