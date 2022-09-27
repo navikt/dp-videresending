@@ -6,10 +6,10 @@ metadata:
   labels:
     team: teamdagpenger
 data:
-  REDIRECTS: >-
-    [
-      {
-        "hostname": "dagpenger-regel-ui.nais.preprod.local",
-        "target": "https://dagpenger-regel-ui.dev.intern.nav.no"
-      }
-    ]
+  dev-fss.conf: |
+    server {
+      listen       8080;
+      server_name  dagpenger-regel-ui.nais.preprod.local;
+      
+      return 301 $scheme://dagpenger-regel-ui.dev.intern.nav.no$request_uri;
+    }

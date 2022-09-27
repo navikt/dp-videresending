@@ -29,5 +29,6 @@ spec:
   {{#each ingresses as |url|}}
      - {{url}}
   {{/each}}
-  envFrom:
+  filesFrom:
     - configmap: dp-videresending-config
+      mountPath: /etc/nginx/conf.d/

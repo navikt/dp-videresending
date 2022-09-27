@@ -6,10 +6,12 @@ metadata:
   labels:
     team: teamdagpenger
 data:
-  REDIRECTS: >-
-    [
-      {
-        "pathname": "/test",
-        "target": "https://www.vg.no/"
+  dev-gcp.conf: |
+    server {
+      listen       8080;
+      server_name  dp-videresending.dev.intern.nav.no;
+
+      location /test {
+        return 201 "cool";
       }
-    ]
+    }

@@ -6,5 +6,4 @@ metadata:
   labels:
     team: teamdagpenger
 data:
-  REDIRECTS: >-
-    []
+  prod-gcp.conf: |
