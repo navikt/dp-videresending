@@ -9,6 +9,7 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - run: kubectl create configmap --dry-run=client --from-file .nais/dev-fss/nginx.conf.d/ --namespace teamdagpenger dp-foobar -o yaml
 
   build:
