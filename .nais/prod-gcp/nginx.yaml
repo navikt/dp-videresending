@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: dp-videresending-config
-  namespace: teamdagpenger
-  labels:
-    team: teamdagpenger
-data:
-  prod-gcp.conf: |

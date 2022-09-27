@@ -6,18 +6,6 @@ env:
   IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: |-
-          kubectl create configmap --dry-run=client -o yaml \
-            --from-file .nais/dev-fss/nginx.conf.d/ \
-            --namespace teamdagpenger \
-            dp-videresending-config | kubectl label -f - --dry-run --local team=teamdagpenger -o yaml > .nais/dev-fss/nginx-v1.yaml
-      - run: cat .nais/dev-fss/nginx-v1.yaml
-      - run: cat .nais/dev-fss/nginx.yaml
-
   build:
     runs-on: ubuntu-latest
     steps:
@@ -46,6 +34,15 @@ jobs:
         cluster: [ dev-gcp, dev-fss ]
     steps:
       - uses: actions/checkout@v3
+      - name: Prepare ConfigMap
+        run: |-
+          kubectl create configmap --dry-run=client -o yaml \
+            --from-file .nais/${{ matrix.cluster }}/nginx.conf.d/ \
+            --namespace teamdagpenger \
+            dp-videresending-config \
+          | kubectl label -f - --dry-run=client --local -o yaml \
+            team=teamdagpenger | tee .nais/${{ matrix.cluster }}/nginx.yaml
+
       - uses: nais/deploy/actions/deploy@master
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
