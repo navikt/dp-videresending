@@ -46,8 +46,8 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: ${{ matrix.cluster }}
-          RESOURCE: .nais/nais.yaml,.nais/config/${{ matrix.cluster }}.yaml
-          VARS: .nais/vars/${{ matrix.cluster }}.yaml
+          RESOURCE: .nais/nais.yaml,.nais/${{ matrix.cluster }}/nginx.yaml
+          VARS: .nais/${{ matrix.cluster }}/ingresses.yaml
           PRINT_PAYLOAD: true
 
   deploy-prod:
@@ -63,6 +63,6 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: ${{ matrix.cluster }}
-          RESOURCE: .nais/nais.yaml,.nais/config/${{ matrix.cluster }}.yaml
-          VARS: .nais/vars/${{ matrix.cluster }}.yaml
+          RESOURCE: .nais/nais.yaml,.nais/${{ matrix.cluster }}/nginx.yaml
+          VARS: .nais/${{ matrix.cluster }}/ingresses.yaml
           PRINT_PAYLOAD: true

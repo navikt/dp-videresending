@@ -9,7 +9,7 @@ data:
   prod-fss.conf: |
     server {
       listen       8080;
-      server_name  dagpenger-regel-ui-v2.nais.adeo.no;
+      server_name  dagpenger-regel-ui.nais.adeo.no;
     
       return 301 $scheme://dagpenger-regel-ui.intern.nav.no$request_uri;
     }
