@@ -1,28 +1,30 @@
 # dp-videresending
 
-Videresender ting.
-
-## Verdt å vite
-
-- Query string blir alltid med videre
-- Redirects er 301 Moved Permanently
+Videresender ting med Nginx.
 
 ## Konfigurasjon
 
-Konfigueres via miljøvariabelen `REDIRECTS`. Den skal være ett array med objekter med en eller flere krav til URL og
-`target` for hvor trafikken skal sendes.
+Du må både legge til ingresser appen skal håndtere og nginx-config for å håndtere redirect-reglene.
 
-Støtter matching på `hostname`, `method` i tillegg til alt annet
-som [URLPatterns](https://developer.mozilla.org/en-US/docs/Web/API/URLPattern) støtter.
+1. Legg til ingress i `.nais/[cluster]/ingresses.yaml`
+2. Legg til config i `.nais/[cluster]/nginx.yaml`
 
-### Eksempel
-```
-[
-  {
-    hostname: "hostname.com",
-    method: "GET",
-    pathname: "/hello/*",
-    target: "https://new-host.com/foobar"
-  }
-]
+### Eksempel Nginx-config
+
+Regler må gruppes per ingress i en `server` blokk med matchende `server_name`.
+
+```nginx configuration
+server {
+  listen       8080;
+  server_name  app1.dev.intern.nav.no;
+
+  return 301 $scheme://nytt-navn.dev.intern.nav.no$request_uri;
+}
+
+server {
+  listen       8080;
+  server_name  app2.dev.intern.nav.no;
+
+  return 301 $scheme://annet.navn.dev.intern.nav.no$request_uri;
+}
 ```
