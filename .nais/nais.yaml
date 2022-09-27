@@ -10,6 +10,7 @@ spec:
   port: 8080
   liveness:
     path: /isalive
+    initialDelay: 1
   readiness:
     path: /isready
     initialDelay: 5
