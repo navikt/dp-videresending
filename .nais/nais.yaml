@@ -9,15 +9,14 @@ spec:
   image: {{image}}
   port: 3000
   liveness:
-    path: isalive
+    path: /isalive
   readiness:
-    path: isready
+    path: /isready
   prometheus:
     enabled: false
   replicas:
     min: 2
-    max: 4
-    cpuThresholdPercentage: 75
+    max: 2
   resources:
     limits:
       cpu: 50m
