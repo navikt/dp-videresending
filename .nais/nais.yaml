@@ -19,10 +19,10 @@ spec:
     max: 2
   resources:
     limits:
-      cpu: 50m
+      cpu: 150m
       memory: 128Mi
     requests:
-      cpu: 30m
+      cpu: 130m
       memory: 64Mi
   ingresses:
   {{#each ingresses as |url|}}
