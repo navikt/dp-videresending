@@ -10,7 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: kubectl create configmap --dry-run=client --from-file .nais/dev-fss/nginx.conf.d/ --namespace teamdagpenger dp-foobar -o yaml
+      - run: |-
+          kubectl create configmap --dry-run=client -o yaml \
+            --from-file .nais/dev-fss/nginx.conf.d/ \
+            --namespace teamdagpenger 
+            dp-videresending-config | kubectl label -f - --dry-run --local team=teamdagpenger -o yaml > .nais/dev-fss/nginx-v1.yaml
+      - run: cat .nais/dev-fss/nginx-v1.yaml
+      - run: cat .nais/dev-fss/nginx.yaml
 
   build:
     runs-on: ubuntu-latest
