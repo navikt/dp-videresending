@@ -60,6 +60,14 @@ jobs:
         cluster: [ prod-gcp, prod-fss ]
     steps:
       - uses: actions/checkout@v3
+      - name: Prepare ConfigMap
+        run: |-
+          kubectl create configmap --dry-run=client -o yaml \
+            --from-file .nais/${{ matrix.cluster }}/nginx.conf.d/ \
+            --namespace teamdagpenger \
+            dp-videresending-config \
+          | kubectl label -f - --dry-run=client --local -o yaml \
+            team=teamdagpenger | tee .nais/${{ matrix.cluster }}/nginx.yaml
       - uses: nais/deploy/actions/deploy@master
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
