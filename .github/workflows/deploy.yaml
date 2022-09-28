@@ -53,7 +53,7 @@ jobs:
 
   deploy-prod:
     needs: [ build ]
-    if: github.ref == 'refs/heads/mains'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     strategy:
       matrix:
