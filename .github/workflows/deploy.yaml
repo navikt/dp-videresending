@@ -27,7 +27,7 @@ jobs:
 
   deploy-dev:
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/innlogget-kalkulator'
     runs-on: ubuntu-latest
     strategy:
       matrix:
