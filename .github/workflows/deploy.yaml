@@ -25,6 +25,12 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: docker-compose run --rm test
+
   deploy-dev:
     needs: build
     if: github.ref == 'refs/heads/main'
