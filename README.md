@@ -11,13 +11,19 @@ Du må både legge til ingresser appen skal håndtere og nginx-config for å hå
 
 ### Eksempel Nginx-config
 
-Regler må gruppes per ingress i en `server` blokk med matchende `server_name`.
+Regler for ingresser på samme server må grupperes i en `server` blokk med matchende `server_name`.
 
 ```nginx configuration
 server {
   listen       8080;
-  server_name  app1.dev.intern.nav.no;
+  server_name  www.nav.no;
 
-  return 301 $scheme://nytt-navn.dev.intern.nav.no$request_uri;
+  location /arbeid/dagpenger/gammel-tjeneste1 {
+    return 301 $scheme://www.nav.no/dagpenger/ny-tjeneste1;
+  }
+
+  location /arbeid/dagpenger/gammel-tjeneste2 {
+    return 301 $scheme://www.nav.no/dagpenger/ny-tjeneste2;
+  }
 }
 ```
