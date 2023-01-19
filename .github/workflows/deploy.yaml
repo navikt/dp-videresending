@@ -6,8 +6,21 @@ env:
   IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          docker-compose build 
+          docker-compose run --volume ./reports:/reports/:rw --rm test --report-junit /reports/junit.xml
+      - uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: './reports/junit.xml'
+
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
       - uses: actions/checkout@v3
       - uses: docker/setup-buildx-action@v2
@@ -24,18 +37,6 @@ jobs:
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: |
-          docker-compose build 
-          docker-compose run --volume ./reports:/reports/:rw --rm test --report-junit /reports/junit.xml
-      - uses: mikepenz/action-junit-report@v3
-        if: always()
-        with:
-          report_paths: './reports/junit.xml'
 
   deploy-dev:
     needs: [ build, test ]
