@@ -14,7 +14,7 @@ services:
           - arbeid.dev.nav.no
   test:
     image: "orangeopensource/hurl"
-    command: --test --glob '/tests/*.hurl'
+    entrypoint: hurl --test --glob '/tests/*.hurl'
     depends_on:
       - nginx
     volumes:
