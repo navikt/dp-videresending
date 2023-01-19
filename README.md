@@ -7,7 +7,7 @@ Videresender ting med Nginx.
 Du må både legge til ingresser appen skal håndtere og nginx-config for å håndtere redirect-reglene.
 
 1. Legg til ingress i `.nais/[cluster]/ingresses.yaml`
-2. Legg til config i `.nais/[cluster]/nginx.conf.d/[ingress].conf`
+2. Legg til config i `.nais/[cluster]/nginx.conf.d/[hostname].conf`
 
 ### Eksempel Nginx-config
 
