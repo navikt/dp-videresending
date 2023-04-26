@@ -13,7 +13,7 @@ services:
           - www.nav.no
           - arbeid.dev.nav.no
   test:
-    image: "orangeopensource/hurl"
+    image: ghcr.io/orange-opensource/hurl
     entrypoint: hurl --test --glob '/tests/*.hurl'
     depends_on:
       - nginx
