@@ -1,9 +1,9 @@
 GET http://nginx:8080/arbeid/dagpenger/soknad-innsending
-Host: arbeid.dev.nav.no
+Host: arbeid.intern.dev.nav.no
 
 HTTP/1.1 301
 [Asserts]
-header "Location" == "https://arbeid.dev.nav.no/dagpenger/dialog/generell-innsending"
+header "Location" == "https://arbeid.intern.dev.nav.no/dagpenger/dialog/generell-innsending"
 
 
 GET http://nginx:8080/arbeid/dagpenger/soknad-innsending

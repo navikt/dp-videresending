@@ -1,5 +1,5 @@
 # dev
-GET http://arbeid.dev.nav.no:8080/arbeid/dagpenger/kalkulator
+GET http://arbeid.intern.dev.nav.no:8080/arbeid/dagpenger/kalkulator
 
 HTTP/1.1 301
 [Asserts]
