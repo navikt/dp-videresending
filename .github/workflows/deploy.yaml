@@ -7,7 +7,7 @@ jobs:
     permissions:
         contents: "write"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: |
           docker-compose build 
           docker-compose run --volume ./reports:/reports/:rw --rm test --report-junit /reports/junit.xml
@@ -45,7 +45,7 @@ jobs:
       matrix:
         cluster: [ dev-gcp, dev-fss ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Prepare ConfigMap
         run: |-
           kubectl create configmap --dry-run=client -o yaml \
@@ -73,7 +73,7 @@ jobs:
       matrix:
         cluster: [ prod-gcp, prod-fss ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Prepare ConfigMap
         run: |-
           kubectl create configmap --dry-run=client -o yaml \
