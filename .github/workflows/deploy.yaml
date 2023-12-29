@@ -9,12 +9,9 @@ jobs:
         checks: "write"
     steps:
       - uses: actions/checkout@v4
+      - run: docker-compose build
+      - run: docker-compose run --volume ./reports:/reports/:rw --rm test --report-junit /reports/junit.xml
       - run: |
-          mkdir -p ./reports
-          docker-compose build
-          docker-compose run --help
-          echo docker-compose run --volume ./reports:/reports/:rw --rm test --report-junit /reports/junit.xml
-          docker-compose run --volume ./reports:/reports/:rw --rm test --report-junit /reports/junit.xml
           ls -la  
           ls -la ./reports
           cat ./reports/junit.xml
