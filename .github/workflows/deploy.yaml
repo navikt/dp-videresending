@@ -10,12 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          mkdir -p reports
+          mkdir -p ./reports
           docker-compose build 
           docker-compose run --volume ./reports:/reports/:rw --rm test --report-junit /reports/junit.xml
           ls -la  
-          ls -la reports
-          cat reports/junit.xml
+          ls -la ./reports
+          cat ./reports/junit.xml
       - uses: mikepenz/action-junit-report@v4
         if: always()
         with:
