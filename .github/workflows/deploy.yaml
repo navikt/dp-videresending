@@ -9,12 +9,10 @@ jobs:
         checks: "write"
     steps:
       - uses: actions/checkout@v4
-      - run: mkdir -p reports
-      - run: docker compose run --volume ./reports:/reports/:rw --rm test --verbose --report-junit /reports/junit.xml
-      - run: |
-          ls -la  
-          ls -la ./reports
-          cat ./reports/junit.xml
+      - name: test
+        run: |
+          mkdir -p reports
+          docker compose run --volume ./reports:/reports/:rw --rm test --verbose --report-junit /reports/junit.xml
       - uses: mikepenz/action-junit-report@v4
         if: always()
         with:
