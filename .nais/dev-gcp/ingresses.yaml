@@ -1,5 +1,5 @@
 ingresses:
   - https://dp-videresending.intern.dev.nav.no
-  - https://arbeid.dev.nav.no/arbeid/dagpenger/soknad-veileder
-  - https://arbeid.dev.nav.no/arbeid/dagpenger/soknad-innsending
-  - https://arbeid.dev.nav.no/arbeid/dagpenger/kalkulator
+  - https://arbeid.intern.dev.nav.no/arbeid/dagpenger/soknad-veileder
+  - https://arbeid.intern.dev.nav.no/arbeid/dagpenger/soknad-innsending
+  - https://arbeid.intern.dev.nav.no/arbeid/dagpenger/kalkulator
