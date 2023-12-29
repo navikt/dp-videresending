@@ -12,6 +12,7 @@ jobs:
       - run: |
           docker-compose build 
           docker-compose run --volume ./reports:/reports/:rw --rm test --report-junit /reports/junit.xml
+          ls -la  
           ls -la reports
           cat reports/junit.xml
       - uses: mikepenz/action-junit-report@v4
@@ -32,10 +33,6 @@ jobs:
         id: docker-build-push
         with:
           team: teamdagpenger
-          tag: latest # optional tag added
-          push_image: true # optional, default true
-          dockerfile: Dockerfile # optional, default Dockerfile
-          docker_context: . # optional, default .
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id:  ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
     outputs:
