@@ -8,6 +8,8 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+        contents: "write"
     steps:
       - uses: actions/checkout@v3
       - run: |
@@ -42,6 +44,8 @@ jobs:
     needs: [ build, test ]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     strategy:
       matrix:
         cluster: [ dev-gcp, dev-fss ]
@@ -56,9 +60,8 @@ jobs:
           | kubectl label -f - --dry-run=client --local -o yaml \
             team=teamdagpenger | tee .nais/${{ matrix.cluster }}/nginx.yaml
 
-      - uses: nais/deploy/actions/deploy@master
+      - uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: ${{ matrix.cluster }}
           RESOURCE: .nais/nais.yaml,.nais/${{ matrix.cluster }}/nginx.yaml
           VARS: .nais/${{ matrix.cluster }}/ingresses.yaml
@@ -68,6 +71,8 @@ jobs:
     needs: [ build, test ]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     strategy:
       matrix:
         cluster: [ prod-gcp, prod-fss ]
@@ -81,9 +86,8 @@ jobs:
             dp-videresending-config \
           | kubectl label -f - --dry-run=client --local -o yaml \
             team=teamdagpenger | tee .nais/${{ matrix.cluster }}/nginx.yaml
-      - uses: nais/deploy/actions/deploy@master
+      - uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: ${{ matrix.cluster }}
           RESOURCE: .nais/nais.yaml,.nais/${{ matrix.cluster }}/nginx.yaml
           VARS: .nais/${{ matrix.cluster }}/ingresses.yaml
