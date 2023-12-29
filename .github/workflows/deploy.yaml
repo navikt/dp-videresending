@@ -11,8 +11,9 @@ jobs:
       - uses: actions/checkout@v4
       - run: docker-compose build
       - run: docker-compose version
+      - run: docker compose version
       - run: which docker-compose
-      - run: docker-compose run --volume ./reports:/reports/:rw --rm test --verbose --report-junit /reports/junit.xml
+      - run: docker compose run --volume ./reports:/reports/:rw --rm test --verbose --report-junit /reports/junit.xml
       - run: |
           ls -la  
           ls -la ./reports
