@@ -1,10 +1,6 @@
 name: Build and deploy
 
 on: [ push ]
-
-env:
-  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -24,21 +20,20 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v2
+      - uses: actions/checkout@v4
+      - uses: nais/docker-build-push@v0
+        name: docker-build-push
+        id: docker-build-push
         with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push image
-        uses: docker/build-push-action@v3
-        with:
-          tags: ${{ env.IMAGE }}
-          push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          team: teamdagpenger
+          tag: latest # optional tag added
+          push_image: true # optional, default true
+          dockerfile: Dockerfile # optional, default Dockerfile
+          docker_context: . # optional, default .
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id:  ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
 
   deploy-dev:
     needs: [ build, test ]
@@ -65,6 +60,7 @@ jobs:
           CLUSTER: ${{ matrix.cluster }}
           RESOURCE: .nais/nais.yaml,.nais/${{ matrix.cluster }}/nginx.yaml
           VARS: .nais/${{ matrix.cluster }}/ingresses.yaml
+          VAR: image=${{ needs.build.outputs.image }}
           PRINT_PAYLOAD: true
 
   deploy-prod:
@@ -91,4 +87,5 @@ jobs:
           CLUSTER: ${{ matrix.cluster }}
           RESOURCE: .nais/nais.yaml,.nais/${{ matrix.cluster }}/nginx.yaml
           VARS: .nais/${{ matrix.cluster }}/ingresses.yaml
+          VAR: image=${{ needs.build.outputs.image }}
           PRINT_PAYLOAD: true
