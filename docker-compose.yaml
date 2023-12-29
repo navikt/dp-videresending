@@ -11,7 +11,7 @@ services:
       test:
         aliases:
           - www.nav.no
-          - arbeid.dev.nav.no
+          - arbeid.intern.dev.nav.no
   test:
     image: ghcr.io/orange-opensource/hurl
     entrypoint: hurl --test --glob '/tests/*.hurl'
