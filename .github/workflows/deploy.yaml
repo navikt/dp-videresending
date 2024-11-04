@@ -13,7 +13,7 @@ jobs:
         run: |
           mkdir -p reports
           docker compose run --volume ./reports:/reports/:rw --rm test --verbose --report-junit /reports/junit.xml
-      - uses: mikepenz/action-junit-report@v4
+      - uses: mikepenz/action-junit-report@v5
         if: always()
         with:
           report_paths: './reports/junit.xml'
