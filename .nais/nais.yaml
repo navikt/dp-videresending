@@ -31,3 +31,11 @@ spec:
   filesFrom:
     - configmap: dp-videresending-config
       mountPath: /etc/nginx/conf.d/
+  observability:
+    logging:
+      destinations:
+        - id: loki
+        - id: elastic
+    autoInstrumentation:
+      enabled: true
+      runtime: java
