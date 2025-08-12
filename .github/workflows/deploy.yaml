@@ -8,7 +8,7 @@ jobs:
         contents: "write"
         checks: "write"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: test
         run: |
           mkdir -p reports
@@ -25,7 +25,7 @@ jobs:
       id-token: "write"
     if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: nais/docker-build-push@v0
         name: docker-build-push
         id: docker-build-push
@@ -46,7 +46,7 @@ jobs:
       matrix:
         cluster: [ dev-gcp, dev-fss ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Prepare ConfigMap
         run: |-
           kubectl create configmap --dry-run=client -o yaml \
@@ -74,7 +74,7 @@ jobs:
       matrix:
         cluster: [ prod-gcp, prod-fss ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Prepare ConfigMap
         run: |-
           kubectl create configmap --dry-run=client -o yaml \
