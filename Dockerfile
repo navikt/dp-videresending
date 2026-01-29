@@ -1,3 +1,3 @@
-FROM nginxinc/nginx-unprivileged:1.29.3-alpine-slim
+FROM cgr.dev/chainguard/nginx:latest
 
 COPY nginx.conf /etc/nginx/nginx.conf
