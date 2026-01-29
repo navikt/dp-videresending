@@ -1,3 +1,3 @@
-FROM nginxinc/nginx-unprivileged:1.29.2-alpine-slim
+FROM nginxinc/nginx-unprivileged:1.29.3-alpine-slim
 
 COPY nginx.conf /etc/nginx/nginx.conf
