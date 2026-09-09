@@ -13,7 +13,7 @@ services:
           - www.nav.no
           - arbeid.intern.dev.nav.no
   test:
-    image: ghcr.io/orange-opensource/hurl
+    image: ghcr.io/orange-opensource/hurl@sha256:d7727dcc0166de8aea88916e73ea435ee09bfecb8ba0c281200206b6cf37cf64
     entrypoint: hurl --test --glob '/tests/*.hurl'
     depends_on:
       - nginx
