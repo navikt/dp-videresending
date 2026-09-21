@@ -58,7 +58,7 @@ jobs:
           | kubectl label -f - --dry-run=client --local -o yaml \
             team=teamdagpenger | tee .nais/${{ matrix.cluster }}/nginx.yaml
 
-      - uses: nais/deploy/actions/deploy@v2
+      - uses: nais/deploy/actions/deploy@v3
         env:
           CLUSTER: ${{ matrix.cluster }}
           RESOURCE: .nais/nais.yaml,.nais/${{ matrix.cluster }}/nginx.yaml
@@ -85,7 +85,7 @@ jobs:
             dp-videresending-config \
           | kubectl label -f - --dry-run=client --local -o yaml \
             team=teamdagpenger | tee .nais/${{ matrix.cluster }}/nginx.yaml
-      - uses: nais/deploy/actions/deploy@v2
+      - uses: nais/deploy/actions/deploy@v3
         env:
           CLUSTER: ${{ matrix.cluster }}
           RESOURCE: .nais/nais.yaml,.nais/${{ matrix.cluster }}/nginx.yaml
